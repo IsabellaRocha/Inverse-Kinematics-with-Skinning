@@ -1,4 +1,3 @@
-# Inverse-Kinematics-with-Skinning
 ## **CSCI 520 Assignment 3: Inverse Kinematics with Skinning**  
 #### Isabella Rocha
 
@@ -10,4 +9,4 @@ This assignment was written on a Windows device using Visual Studio 2019. To cha
 * Forward kinematics
 * Tikhonov algorithm for inverse kinematics
 
-### **Link to description** https://viterbi-web.usc.edu/~jbarbic/cs520-s24/assign3/
+### **Link to description:** https://viterbi-web.usc.edu/~jbarbic/cs520-s24/assign3/
