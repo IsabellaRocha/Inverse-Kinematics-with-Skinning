@@ -70,17 +70,31 @@ Skinning::Skinning(int numMeshVertices, const double * restMeshVertexPositions,
     // the remaining empty entries are initialized to zero due to vector::assign(XX, 0.0) .
   }
 }
-
-void Skinning::applySkinning(const RigidTransform4d * jointSkinTransforms, double * newMeshVertexPositions) const
+void Skinning::applySkinning(const RigidTransform4d* jointSkinTransforms, double* newMeshVertexPositions) const
 {
-  // Students should implement this
+    // Initializing storage for final positions
+    vector<Vec4d> p(numMeshVertices);
+    for (int idx = 0; idx < numMeshVertices; idx++)
+    {
+        p[idx] = Vec4d(0, 0, 0, 0);
+    }
 
-  // The following below is just a dummy implementation.
-  for(int i=0; i<numMeshVertices; i++)
-  {
-    newMeshVertexPositions[3 * i + 0] = restMeshVertexPositions[3 * i + 0];
-    newMeshVertexPositions[3 * i + 1] = restMeshVertexPositions[3 * i + 1];
-    newMeshVertexPositions[3 * i + 2] = restMeshVertexPositions[3 * i + 2];
-  }
+    // Initializing rest positions
+    vector<Vec4d> pBar(numMeshVertices);
+    for (int idx = 0; idx < numMeshVertices; idx++) {
+        pBar[idx] = Vec4d(restMeshVertexPositions[3 * idx], restMeshVertexPositions[3 * idx + 1], restMeshVertexPositions[3 * idx + 2], 1);
+    }
+
+    for (int i = 0; i < numMeshVertices; i++)
+    {
+        for (int j = 0; j < numJointsInfluencingEachVertex; j++) {
+            //pi = summation(wj * Mj * pBari)
+            p[i] += meshSkinningWeights[i * numJointsInfluencingEachVertex + j] *
+            jointSkinTransforms[meshSkinningJoints[i * numJointsInfluencingEachVertex + j]] * pBar[i];
+        }
+        
+        for (int j = 0; j < 3; j++) {
+           newMeshVertexPositions[3 * i + j] = p[i][j];
+        }
+    }
 }
-

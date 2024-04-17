@@ -128,6 +128,8 @@
     <ClCompile Include="..\driver.cpp" />
     <ClCompile Include="..\FK.cpp" />
     <ClCompile Include="..\IK.cpp" />
+    <ClCompile Include="..\pic.cpp" />
+    <ClCompile Include="..\ppm.cpp" />
     <ClCompile Include="..\skeletonRenderer.cpp" />
     <ClCompile Include="..\skinning.cpp" />
     <ClCompile Include="..\vega\averagingBuffer.cpp" />
@@ -154,6 +156,7 @@
     <ClInclude Include="..\FK.h" />
     <ClInclude Include="..\IK.h" />
     <ClInclude Include="..\minivectorTemplate.h" />
+    <ClInclude Include="..\pic.h" />
     <ClInclude Include="..\skeletonRenderer.h" />
     <ClInclude Include="..\skinning.h" />
     <ClInclude Include="..\vega\averagingBuffer.h" />

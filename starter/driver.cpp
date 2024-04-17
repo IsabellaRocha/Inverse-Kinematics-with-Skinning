@@ -85,7 +85,36 @@ static AveragingBuffer fpsBuffer(5);
 static vector<int> IKJointIDs;
 static vector<Vec3d> IKJointPos;
 
+//Used for animation purposes, change savescreentofile to 1 to animate
+int sprite = 100;
+int saveScreenToFile = 0;
+
+
 //======================= Functions =============================
+/* Write a screenshot, in the PPM format, to the specified filename, in PPM format */
+void saveScreenshot(int windowWidth, int windowHeight, char* filename)
+{
+    if (filename == NULL)
+        return;
+
+    // Allocate a picture buffer 
+    Pic* in = pic_alloc(windowWidth, windowHeight, 3, NULL);
+
+    printf("File to save to: %s\n", filename);
+
+    for (int i = windowHeight - 1; i >= 0; i--)
+    {
+        glReadPixels(0, windowHeight - i - 1, windowWidth, 1, GL_RGB, GL_UNSIGNED_BYTE,
+            &in->pix[i * in->nx * in->bpp]);
+    }
+
+    if (ppm_write(filename, in))
+        printf("File saved Successfully\n");
+    else
+        printf("Error in Saving\n");
+
+    pic_free(in);
+}
 
 static void updateSkinnedMesh()
 {
@@ -121,7 +150,26 @@ static void idleFunction()
   counter.StopCounter();
   // double dt = counter.GetElapsedTime();
   counter.StartCounter();
+  char s[20] = "picxxxx.ppm";
+  int i;
 
+  // save screen to file
+  s[3] = 48 + (sprite / 1000);
+  s[4] = 48 + (sprite % 1000) / 100;
+  s[5] = 48 + (sprite % 100) / 10;
+  s[6] = 48 + sprite % 10;
+
+  if (saveScreenToFile == 1)
+  {
+      saveScreenshot(windowWidth, windowHeight, s);
+      saveScreenToFile = 1; // save only once, change this if you want continuos image generation (i.e. animation)
+      sprite++;
+  }
+
+  if (sprite >= 300) // allow only 300 snapshots
+  {
+      exit(0);
+  }
   // Take appropriate action in case the user is dragging a vertex.
   auto processDrag = [&](int vertex, Vec3d posDiff)
   {

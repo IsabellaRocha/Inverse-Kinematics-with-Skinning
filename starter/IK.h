@@ -8,6 +8,7 @@
 // Jernej Barbic and Yijing Li
 
 #include <cfloat>
+#include "pic.h"
 
 class FK;
 class Vec3d;
