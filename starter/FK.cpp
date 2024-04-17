@@ -212,33 +212,33 @@ void FK::computeLocalAndGlobalTransforms(
     // Use the jointParents and jointUpdateOrder arrays to do so.
     // Also useful are the Mat3d and RigidTransform4d classes defined in the Vega folder.
 
-    for (int i = 0; i < jointParents.size(); ++i)
+    for (int idx = 0; idx < jointParents.size(); idx++)
     {
-        Mat3d localTransform;
+        Mat3d localTransformation;
 
         double eulerArray[9];
-        euler2Rotation(eulerAngles[jointUpdateOrder[i]], eulerArray, rotateOrders[jointUpdateOrder[i]]);
-        Mat3d eulerMatrix = Mat3d(eulerArray);
-
         double orientationArray[9];
-        euler2Rotation(jointOrientationEulerAngles[jointUpdateOrder[i]], orientationArray, XYZ);
+
+        euler2Rotation(eulerAngles[jointUpdateOrder[idx]], eulerArray, rotateOrders[jointUpdateOrder[idx]]);
+        euler2Rotation(jointOrientationEulerAngles[jointUpdateOrder[idx]], orientationArray, XYZ);
+
+        Mat3d eulerMatrix = Mat3d(eulerArray);
         Mat3d orientationMatrix = Mat3d(orientationArray);
 
-        localTransform = orientationMatrix * eulerMatrix;
-
-        localTransforms[jointUpdateOrder[i]] = RigidTransform4d(localTransform, translations[jointUpdateOrder[i]]);
+        localTransformation = orientationMatrix * eulerMatrix;
+        localTransforms[jointUpdateOrder[idx]] = RigidTransform4d(localTransformation, translations[jointUpdateOrder[idx]]);
 
         // Then, recursively compute the globalTransforms, from the root to the leaves of the hierarchy.
         // Use the jointParents and jointUpdateOrder arrays to do so.	
 
         // Check for root
-        if (jointParents[jointUpdateOrder[i]] == -1) {
-            globalTransforms[jointUpdateOrder[i]] = localTransforms[jointUpdateOrder[i]];
+        if (jointParents[jointUpdateOrder[idx]] == -1) {
+            globalTransforms[jointUpdateOrder[idx]] = localTransforms[jointUpdateOrder[idx]];
 
         }
         // Mgchild = Mgparent * Mlchild
         else {
-            globalTransforms[jointUpdateOrder[i]] = globalTransforms[jointParents[jointUpdateOrder[i]]] * localTransforms[jointUpdateOrder[i]];
+            globalTransforms[jointUpdateOrder[idx]] = globalTransforms[jointParents[jointUpdateOrder[idx]]] * localTransforms[jointUpdateOrder[idx]];
         }
     }
 

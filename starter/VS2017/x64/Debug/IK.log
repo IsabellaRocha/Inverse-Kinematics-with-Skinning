@@ -1,4 +1,9 @@
-﻿  IK.cpp
+﻿  FK.cpp
+C:\Users\imr84\OneDrive\Desktop\csci520\cs520-hw3-ik\starter\vega\listIO.h(66,89): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\imr84\OneDrive\Desktop\csci520\cs520-hw3-ik\starter\vega\listIO.h(79,59): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\imr84\OneDrive\Desktop\csci520\cs520-hw3-ik\starter\FK.cpp(65,34): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  IK.cpp
 C:\Users\imr84\OneDrive\Desktop\csci520\cs520-hw3-ik\starter\adolc\Win64\include\adolc\advector.h(130,30): warning C4267: 'argument': conversion from 'size_t' to 'locint', possible loss of data
+  Generating Code...
 C:\Users\imr84\OneDrive\Desktop\csci520\cs520-hw3-ik\starter\IK.cpp(48): warning C4715: '`anonymous namespace'::Euler2Rotation<adouble>': not all control paths return a value
   IK.vcxproj -> C:\Users\imr84\OneDrive\Desktop\csci520\cs520-hw3-ik\starter\VS2017\x64\Debug\IK.exe
